@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # PostgreSQL service for storing data
+  dalle3_postgres:
+    container_name: dalle3_postgres
+    image: postgres:alpine3.18
+    ports:
+      - "5432:${DATABASE_PORT}"  # Map container port 5432 to host port specified by DATABASE_PORT
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}  # Set PostgreSQL username from DATABASE_USER environment variable
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}  # Set PostgreSQL password from DATABASE_PASSWORD environment variable
+    restart: always
+    volumes:
+      - dalle3_postgres:/var/lib/postgresql/dalle3_postgres  # Mount volume for persisting PostgreSQL data
+
+  # Telegram bot and admin panel service
+  dalle3_telegram_bot:
+    build: .
+    container_name: dalle3_telegram_bot
+    restart: always
+    ports:
+      - "${PANEL_PORT}:${PANEL_PORT}"  # Map container port to host port specified by PANEL_PORT
+    depends_on:
+      - dalle3_postgres  # Depend on dalle3_postgres service
+    volumes:
+      - /root/dalle3_telegram_bot/logs:/usr/src/app/dalle3_telegram_bot/logs  # Mount volume for storing logs
+
+volumes:
+  dalle3_postgres:
+    external: true  # Use external volume for persistent storage
