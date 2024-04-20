@@ -30,3 +30,7 @@
 3. Открыть админ панель по ссылке `localhost:8081/admin` или `<server_id>:8081/admin`.
 
 4. Перейти в чат бота
+
+
+## Документация
+Запустить файл `html/dalle3_telegram_bot/index.html`
