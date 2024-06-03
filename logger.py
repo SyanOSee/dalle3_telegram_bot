@@ -89,7 +89,7 @@ def create_log_folder() -> str:
     Returns:
     str: Path of the log folder
     """
-    path = cf.BASE + '/logs'
+    path = cf.BASE / 'logs'
     if not os.path.exists(path):
         os.makedirs(path, exist_ok=True)
     return path

@@ -17,6 +17,7 @@ from .models import base, UserModel, SettingsModel
 # Enum for different types of database connections
 class Type(Enum):
     POSTGRESQL = f'postgresql+psycopg2://{cf.database["user"]}:{cf.database["password"]}@{cf.database["host"]}:{cf.database["port"]}'
+    SQLITE = f'sqlite:///{cf.SQLITE_PATH}'
 
 
 class Database:
@@ -220,4 +221,4 @@ class Database:
 
 
 # Create an instance of the Database class with a PostgreSQL connection
-db = Database(type_=Type.POSTGRESQL)
+db = Database(type_=Type.SQLITE)

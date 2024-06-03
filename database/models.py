@@ -16,14 +16,14 @@ class UserModel(base):
     Represents a user in the database.
 
     Attributes:
-    user_id (BigInteger): The unique identifier for the user.
+    user_id (Integer): The unique identifier for the user.
     name (String): The name of the user.
     joined_date (DateTime): The date the user joined.
     settings (Relationship): The settings associated with the user.
     """
 
     __tablename__ = 'Users'
-    user_id = Column(BigInteger, primary_key=True)
+    user_id = Column(Integer, primary_key=True)
     name = Column(String)
     joined_date = Column(DateTime, default=func.now())
 
@@ -57,21 +57,21 @@ class SettingsModel(base):
     Represents settings for a user.
 
     Attributes:
-    id (BigInteger): The unique identifier for the settings.
+    id (Integer): The unique identifier for the settings.
     model (String): The model to use.
     size (String): The size of the model.
     quantity (int): The quantity of settings.
-    user_id (BigInteger): The user ID associated with the settings.
+    user_id (Integer): The user ID associated with the settings.
     user (Relationship): The user associated with the settings.
     """
 
     __tablename__ = 'Settings'
-    id = Column(BigInteger, primary_key=True)
+    id = Column(Integer, primary_key=True)
     model = Column(String, default=Model.DALLE_2.value)
     size = Column(String, default=Size.S_256.value)
     quantity = Column(Integer, default=1)
 
-    user_id = Column(BigInteger, ForeignKey('Users.user_id'))
+    user_id = Column(Integer, ForeignKey('Users.user_id'))
     user = relationship('UserModel', back_populates='settings')
 
     @staticmethod

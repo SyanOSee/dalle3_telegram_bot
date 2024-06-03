@@ -2,16 +2,18 @@
 from dotenv import load_dotenv
 
 # Standard
+from pathlib import Path
 import os
 
 load_dotenv('./.env')  # Load environment variables from .env
 
-BASE = os.path.dirname(os.path.abspath(__file__))
+BASE = Path(__file__).resolve().parent
+SQLITE_PATH = BASE / 'database' / 'sqlite_db.db'
 
 # Define project directories
 project = {
     'base': BASE,
-    'storage': BASE + '/storage'
+    'storage': BASE / 'storage'
 }
 
 # Define bot configuration
